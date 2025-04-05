@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1.mb-4 Add New Book
+  
+  if errors
+    .alert.alert-danger
+      ul.mb-0
+        each error in errors
+          li= error.msg
+  
+  .card
+    .card-body
+      form(action="/books/add", method="POST")
+        .mb-3
+          label.form-label(for="title") Title *
+          input.form-control#title(type="text", name="title", value=book ? book.title : '', required)
+        
+        .mb-3
+          label.form-label(for="author") Author *
+          input.form-control#author(type="text", name="author", value=book ? book.author : '', required)
+        
+        .mb-3
+          label.form-label(for="genre") Genre *
+          select.form-select#genre(name="genre", required)
+            option(value="", disabled, selected=!book) Select Genre
+            each genre in ['Fiction', 'Non-Fiction', 'Science Fiction', 'Fantasy', 'Mystery', 'Thriller', 'Romance', 'Biography', 'History', 'Self-Help', 'Business', 'Other']
+              option(value=genre, selected=book && book.genre === genre)= genre
+        
+        .mb-3
+          label.form-label(for="status") Status *
+          select.form-select#status(name="status", required)
+            option(value="", disabled, selected=!book) Select Status
+            each status in ['To Read', 'Reading', 'Completed']
+              option(value=status, selected=book && book.status === status)= status
+        
+        .mb-3
+          label.form-label(for="notes") Notes
+          textarea.form-control#notes(name="notes", rows="3")= book ? book.notes : ''
+        
+        .d-flex.gap-2
+          button.btn.btn-primary(type="submit") Add Book
+          a.btn.btn-secondary(href="/") Cancel
