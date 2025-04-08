@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 My Reading List
+    a.btn.btn-primary(href='/books/new') Add New Book
+  
+  .mb-4
+    .btn-group.w-100
+      a.btn.btn-outline-primary(class=currentStatus === 'all' ? 'active' : '', href='/books') All Books
+      a.btn.btn-outline-primary(class=currentStatus === 'to read' ? 'active' : '', href='/books?status=to%20read') To Read
+      a.btn.btn-outline-primary(class=currentStatus === 'reading' ? 'active' : '', href='/books?status=reading') Reading
+      a.btn.btn-outline-primary(class=currentStatus === 'completed' ? 'active' : '', href='/books?status=completed') Completed
+  
+  if books && books.length > 0
+    .row
+      each book in books
+        .col-md-6.col-lg-4.mb-4
+          .card.h-100
+            .card-body
+              h5.card-title= book.title
+              h6.card-subtitle.mb-2.text-muted= book.author
+              if book.genre
+                p.card-text.small
+                  strong Genre: 
+                  = book.genre
+              
+              p.card-text 
+                span.badge(class=book.status === 'to read' ? 'bg-secondary' : book.status === 'reading' ? 'bg-primary' : 'bg-success')= book.status
+              
+            .card-footer.bg-white.border-top-0
+              .d-flex.justify-content-between
+                a.btn.btn-sm.btn-outline-primary(href=`/books/${book._id}`) View Details
+                a.btn.btn-sm.btn-outline-secondary(href=`/books/${book._id}/edit`) Edit
+  else
+    .alert.alert-info
+      if currentStatus === 'all'
+        p.mb-0 You haven't added any books to your reading list yet.
+      else
+        p.mb-0 You don't have any books with status "#{currentStatus}" yet.
+      
+      a.btn.btn-primary.mt-3(href='/books/new') Add Your First Book

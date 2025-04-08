@@ -1,33 +1,33 @@
 extends ../layout
 
 block content
-  .container.mt-5
-    .row.justify-content-center
-      .col-md-6
-        .card
-          .card-header.bg-primary.text-white
-            h3 Register
-          .card-body
-            if error_msg
-              .alert.alert-danger= error_msg
-            if success_msg
-              .alert.alert-success= success_msg
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h3.text-center Register
+        .card-body
+          form(action='/users/register', method='POST')
+            .mb-3
+              label.form-label(for='name') Name
+              input#name.form-control(type='text', name='name', value=name || '', required)
               
-            form(action="/users/register", method="POST")
-              .form-group.mb-3
-                label(for="username") Username
-                input.form-control#username(type="text", name="username", placeholder="Choose a username", required)
-              .form-group.mb-3
-                label(for="email") Email Address
-                input.form-control#email(type="email", name="email", placeholder="Enter your email", required)
-              .form-group.mb-3
-                label(for="password") Password
-                input.form-control#password(type="password", name="password", placeholder="Choose a password", required, minlength="6")
-              .form-group.mb-3
-                label(for="password2") Confirm Password
-                input.form-control#password2(type="password", name="password2", placeholder="Confirm your password", required, minlength="6")
-              button.btn.btn-primary.btn-block.w-100.mt-3(type="submit") Register
-              
-            .mt-4.text-center
-              p Already have an account? 
-                a(href="/users/login") Login
+            .mb-3
+              label.form-label(for='email') Email
+              input#email.form-control(type='email', name='email', value=email || '', required)
+            
+            .mb-3
+              label.form-label(for='password') Password
+              input#password.form-control(type='password', name='password', required)
+              small.form-text.text-muted Password must be at least 6 characters
+            
+            .mb-3
+              label.form-label(for='password2') Confirm Password
+              input#password2.form-control(type='password', name='password2', required)
+            
+            .d-grid.gap-2
+              button.btn.btn-primary(type='submit') Register
+          
+          hr
+          p.text-center Already have an account? 
+            a(href='/users/login') Login

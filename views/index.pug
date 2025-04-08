@@ -1,50 +1,36 @@
 extends layout
 
 block content
-  h1.mb-4 #{title}
-  
-  .mb-4
-    .card
-      .card-header
-        h5.mb-0 Filter by Status
-      .card-body
-        .d-flex.flex-wrap.gap-2
-          a.btn.btn-outline-primary(href="/", class=currentFilter === undefined ? 'active' : '') All Books
-          a.btn.btn-outline-warning(href="/filter/To Read", class=currentFilter === 'To Read' ? 'active' : '') To Read
-          a.btn.btn-outline-info(href="/filter/Reading", class=currentFilter === 'Reading' ? 'active' : '') Reading
-          a.btn.btn-outline-success(href="/filter/Completed", class=currentFilter === 'Completed' ? 'active' : '') Completed
-  
-  if books && books.length > 0
-    .row
-      each book in books
-        .col-md-6.col-lg-4.mb-4
-          .card.h-100
-            .card-header
-              h5.card-title.mb-0= book.title
-              small.text-muted= book.author
-            .card-body
-              p.card-text.mb-1
-                strong Genre: 
-                span= book.genre
-              p.card-text.mb-2
-                strong Status: 
-                span(class=book.status === 'To Read' ? 'text-warning' : book.status === 'Reading' ? 'text-info' : 'text-success')= book.status
-              if book.notes
-                p.card-text.notes-text
-                  small= book.notes
-            .card-footer.d-flex.justify-content-between.bg-white
-              a.btn.btn-sm.btn-outline-primary(href=`/books/${book.id}`)
-                i.fas.fa-eye.me-1
-                | View
-              .btn-group
-                a.btn.btn-sm.btn-outline-secondary(href=`/books/edit/${book.id}`)
-                  i.fas.fa-edit.me-1
-                  | Edit
-                form.d-inline(action=`/books/delete/${book.id}`, method="POST", onsubmit="return confirm('Are you sure you want to delete this book?');")
-                  button.btn.btn-sm.btn-outline-danger(type="submit")
-                    i.fas.fa-trash.me-1
-                    | Delete
-  else
-    .alert.alert-info
-      p No books found in your reading list.
-      a.btn.btn-primary.mt-2(href="/books/add") Add Your First Book
+  .row.justify-content-center.align-items-center.min-vh-50
+    .col-md-8.text-center
+      h1.display-4.mb-4 Welcome to Reading List App
+      p.lead Track your reading journey with our easy-to-use Reading List App!
+      
+      if !user
+        .mt-4
+          a.btn.btn-primary.me-2(href='/users/login') Login
+          a.btn.btn-outline-primary(href='/users/register') Register
+      else
+        .mt-4
+          a.btn.btn-primary.me-2(href='/books') View My Books
+          a.btn.btn-outline-primary(href='/books/new') Add New Book
+      
+      .row.mt-5
+        .col-md-4
+          .card.mb-4
+            .card-body.text-center
+              i.fas.fa-book.fa-3x.mb-3.text-primary
+              h3 Track Your Books
+              p Add books you want to read, are currently reading, or have completed.
+        .col-md-4
+          .card.mb-4
+            .card-body.text-center
+              i.fas.fa-list-check.fa-3x.mb-3.text-primary
+              h3 Organize by Status
+              p Sort your books based on reading status to stay organized.
+        .col-md-4
+          .card.mb-4
+            .card-body.text-center
+              i.fas.fa-notes.fa-3x.mb-3.text-primary
+              h3 Personal Notes
+              p Add notes and thoughts about each book you're reading.

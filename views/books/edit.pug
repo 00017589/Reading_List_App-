@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header
+          h2.text-center Edit Book
+        .card-body
+          form.book-form(action=`/books/${book._id}?_method=PUT`, method='POST')
+            .mb-3
+              label.form-label(for='title') Title *
+              input#title.form-control(type='text', name='title', value=book.title, required)
+            
+            .mb-3
+              label.form-label(for='author') Author *
+              input#author.form-control(type='text', name='author', value=book.author, required)
+            
+            .mb-3
+              label.form-label(for='genre') Genre
+              input#genre.form-control(type='text', name='genre', value=book.genre || '')
+            
+            .mb-3
+              label.form-label(for='status') Status
+              select#status.form-select(name='status')
+                option(value='to read', selected=book.status === 'to read') To Read
+                option(value='reading', selected=book.status === 'reading') Currently Reading
+                option(value='completed', selected=book.status === 'completed') Completed
+              
+              .mt-2
+                span#status-badge-preview.badge(class=book.status === 'to read' ? 'bg-secondary' : book.status === 'reading' ? 'bg-primary' : 'bg-success')= book.status
+            
+            .mb-3
+              label.form-label(for='notes') Notes
+              textarea#notes.form-control(name='notes', rows='4')= book.notes || ''
+            
+            .d-flex.justify-content-between
+              a.btn.btn-secondary(href=`/books/${book._id}`) Cancel
+              button.btn.btn-primary(type='submit') Update Book

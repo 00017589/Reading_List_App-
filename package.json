@@ -1,7 +1,7 @@
 {
     "name": "reading-list-app",
     "version": "1.0.0",
-    "description": "A web application to help you organize your reading",
+    "description": "A web application to manage your reading list",
     "main": "app.js",
     "scripts": {
         "start": "node app.js",
@@ -9,25 +9,23 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
-        "express",
-        "node",
         "books",
         "reading",
-        "list"
+        "express",
+        "mongodb"
     ],
-    "author": "Your Name",
+    "author": "Student",
     "license": "ISC",
     "dependencies": {
-        "bcrypt": "^5.1.1",
-        "body-parser": "^1.20.2",
+        "bcryptjs": "^2.4.3",
         "connect-flash": "^0.1.1",
-        "dotenv": "^16.4.7",
-        "express": "^4.21.2",
-        "express-session": "^1.18.1",
-        "express-validator": "^7.0.1",
-        "mongoose": "^8.13.2",
-        "morgan": "^1.10.0",
-        "nodemailer": "^6.10.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "method-override": "^3.0.0",
+        "mongoose": "^7.0.3",
+        "passport": "^0.6.0",
+        "passport-local": "^1.0.0",
         "pug": "^3.0.2"
     },
     "devDependencies": {
