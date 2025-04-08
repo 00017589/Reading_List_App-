@@ -1,5 +1,3 @@
-// In-memory database for books
-// In a real application, you would use a proper database like MongoDB or SQL
 let books = [
     {
       id: '1',
@@ -30,22 +28,18 @@ let books = [
     }
   ];
   
-  // Helper function to generate ID
   const generateId = () => {
     return Date.now().toString();
   };
   
-  // Get all books
   exports.getAllBooks = () => {
     return books;
   };
   
-  // Get a book by ID
   exports.getBookById = (id) => {
     return books.find(book => book.id === id);
   };
   
-  // Add a new book
   exports.addBook = (title, author, genre, status, notes) => {
     const newBook = {
       id: generateId(),
@@ -61,7 +55,6 @@ let books = [
     return newBook;
   };
   
-  // Update a book
   exports.updateBook = (id, title, author, genre, status, notes) => {
     const index = books.findIndex(book => book.id === id);
     
@@ -81,7 +74,6 @@ let books = [
     return true;
   };
   
-  // Delete a book
   exports.deleteBook = (id) => {
     const initialLength = books.length;
     books = books.filter(book => book.id !== id);
@@ -89,7 +81,6 @@ let books = [
     return books.length < initialLength;
   };
   
-  // Filter books by status
   exports.filterBooksByStatus = (status) => {
     if (status === 'all') {
       return books;

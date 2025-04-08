@@ -1,11 +1,8 @@
-// Form validation
 (function() {
     'use strict';
     
-    // Fetch all forms that need validation
     const forms = document.querySelectorAll('.needs-validation');
     
-    // Loop over and prevent submission
     Array.from(forms).forEach(form => {
       form.addEventListener('submit', event => {
         if (!form.checkValidity()) {
@@ -17,7 +14,6 @@
       }, false);
     });
     
-    // Confirm delete
     const deleteButtons = document.querySelectorAll('.btn-delete');
     Array.from(deleteButtons).forEach(button => {
       button.addEventListener('click', event => {

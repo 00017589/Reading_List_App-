@@ -1,7 +1,6 @@
 const { validationResult } = require('express-validator');
 const bookService = require('../services/index');
 
-// Get all books
 exports.getAllBooks = (req, res) => {
   try {
     const books = bookService.getAllBooks();
@@ -15,7 +14,6 @@ exports.getAllBooks = (req, res) => {
   }
 };
 
-// Get book by ID
 exports.getBookById = (req, res) => {
   try {
     const id = req.params.id;
@@ -36,7 +34,6 @@ exports.getBookById = (req, res) => {
   }
 };
 
-// Add a new book
 exports.addBook = (req, res) => {
   const errors = validationResult(req);
   
@@ -60,7 +57,6 @@ exports.addBook = (req, res) => {
   }
 };
 
-// Get edit book form
 exports.getEditBookForm = (req, res) => {
   try {
     const id = req.params.id;
@@ -81,7 +77,6 @@ exports.getEditBookForm = (req, res) => {
   }
 };
 
-// Update a book
 exports.updateBook = (req, res) => {
   const id = req.params.id;
   const errors = validationResult(req);
@@ -112,7 +107,6 @@ exports.updateBook = (req, res) => {
   }
 };
 
-// Delete a book
 exports.deleteBook = (req, res) => {
   try {
     const id = req.params.id;
@@ -131,7 +125,6 @@ exports.deleteBook = (req, res) => {
   }
 };
 
-// Filter books by status
 exports.filterBooksByStatus = (req, res) => {
   try {
     const status = req.params.status;
