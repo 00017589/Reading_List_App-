@@ -7,22 +7,12 @@ const flash = require('connect-flash');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// connecting database
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log('MongoDB Atlas connected successfully');
-  } catch (err) {
-    console.error('MongoDB connection error:', err.message);
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch(err => {
+    console.error('MongoDB connection error details:', err);
     process.exit(1);
-  }
-};
-
-// calling the connect 
-connectDB();
+  });
 
 //import routing
 const booksRoutes = require('./routes/index');
