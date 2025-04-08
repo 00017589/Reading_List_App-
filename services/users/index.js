@@ -11,8 +11,10 @@ exports.createUser = async (username, email, password) => {
   }
   
   // hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const SALT_ROUNDS = 10;
+  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+
   
   // creating user in database
   const user = new User({
@@ -76,23 +78,48 @@ exports.updateUser = async (id, userData) => {
   return updatedUser;
 };
 
-// requesting password reset
+const nodemailer = require('nodemailer');
+
 exports.requestPasswordReset = async (email) => {
   const user = await getUserByEmail(email);
   if (!user) {
     throw new Error('No account with that email address exists');
   }
-  
-  // generating token
+
   const resetToken = crypto.randomBytes(20).toString('hex');
-  
-  // setting token and expiration in database
+
   user.resetPasswordToken = resetToken;
-  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+  user.resetPasswordExpires = Date.now() + 3600000; 
   await user.save();
-  
-  return resetToken;
+
+  const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+;
+
+  const resetUrl = `http://localhost:3000/users/reset-password/${resetToken}`;
+
+  const mailOptions = {
+    from: '"Reading List App" <your-email@gmail.com>',
+    to: user.email,
+    subject: 'Password Reset Request',
+    html: `
+      <p>Hello ${user.username || user.email},</p>
+      <p>You requested to reset your password. Click the link below to reset it:</p>
+      <a href="${resetUrl}">${resetUrl}</a>
+      <p>If you didn't request this, you can safely ignore this email.</p>
+    `
+  };
+
+  await transporter.sendMail(mailOptions);
+
+  return resetToken; 
 };
+
 
 exports.resetPassword = async (token, password) => {
   const user = await User.findOne({

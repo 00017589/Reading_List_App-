@@ -19,6 +19,16 @@ html(lang="en")
               a.nav-link(href="/") Home
             li.nav-item
               a.nav-link(href="/books/add") Add Book
+            if user
+              li.nav-item
+                a.nav-link(href="/users/profile") Hello #{user.username}
+              li.nav-item
+                a.nav-link(href="/users/logout") Logout
+            else
+              li.nav-item
+                a.nav-link(href="/users/login") Login
+              li.nav-item
+                a.nav-link(href="/users/register") Register
     
     .container.mt-4
       // Flash messages

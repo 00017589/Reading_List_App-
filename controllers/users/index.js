@@ -85,6 +85,11 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
+exports.getForgotPassword = (req, res) => {
+  res.render('users/forgot_password', { title: 'Forgot Password' });
+};
+
+
 // processing password reset
 exports.resetPassword = async (req, res) => {
   try {
@@ -97,4 +102,19 @@ exports.resetPassword = async (req, res) => {
     req.flash('error_msg', error.message);
     res.redirect('/users/reset-password/' + req.params.token);
   }
+};
+
+// rendering login form
+exports.getLogin = (req, res) => {
+  res.render('users/login', { title: 'Login' });
+};
+
+// rendering register form
+exports.getRegister = (req, res) => {
+  res.render('users/register', { title: 'Register' });
+};
+
+exports.getResetPassword = (req, res) => {
+  const { token } = req.params;
+  res.render('users/reset_password', { token, title: 'Reset Password' });
 };
