@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-8
+        .card
+          .card-header.bg-primary.text-white
+            h3 User Profile
+          .card-body
+            if error_msg
+              .alert.alert-danger= error_msg
+            if success_msg
+              .alert.alert-success= success_msg
+            
+            form(action="/users/profile", method="POST")
+              input(type="hidden", name="_method", value="PUT")
+              .form-group.mb-3
+                label(for="username") Username
+                input.form-control#username(type="text", name="username", value=user.username, required)
+              .form-group.mb-3
+                label(for="email") Email Address
+                input.form-control#email(type="email", name="email", value=user.email, required)
+              .form-group.mb-3
+                label(for="created") Member Since
+                input.form-control#created(type="text", value=user.createdAt.toDateString(), disabled)
+              button.btn.btn-primary.mt-3(type="submit") Update Profile
+              
+            .mt-4
+              h4 Change Password
+              form(action="/users/change-password", method="POST")
+                .form-group.mb-3
+                  label(for="currentPassword") Current Password
+                  input.form-control#currentPassword(type="password", name="currentPassword", required)
+                .form-group.mb-3
+                  label(for="newPassword") New Password
+                  input.form-control#newPassword(type="password", name="newPassword", required, minlength="6")
+                .form-group.mb-3
+                  label(for="confirmPassword") Confirm New Password
+                  input.form-control#confirmPassword(type="password", name="confirmPassword", required, minlength="6")
+                button.btn.btn-warning.mt-3(type="submit") Change Password

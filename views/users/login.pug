@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-6
+        .card
+          .card-header.bg-primary.text-white
+            h3 Login
+          .card-body
+            if error_msg
+              .alert.alert-danger= error_msg
+            if success_msg
+              .alert.alert-success= success_msg
+              
+            form(action="/users/login", method="POST")
+              .form-group.mb-3
+                label(for="email") Email Address
+                input.form-control#email(type="email", name="email", placeholder="Enter your email", required)
+              .form-group.mb-3
+                label(for="password") Password
+                input.form-control#password(type="password", name="password", placeholder="Enter your password", required)
+              button.btn.btn-primary.btn-block.w-100.mt-3(type="submit") Login
+              
+            .mt-4.text-center
+              p Don't have an account? 
+                a(href="/users/register") Register
+              p 
+                a(href="/users/forgot-password") Forgot Password?

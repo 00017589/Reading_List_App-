@@ -1,4 +1,4 @@
-# Dependency directories
+# ignoring node_modules
 node_modules/
 
 # Environment variables

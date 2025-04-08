@@ -4,18 +4,35 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-// Import routes
+// connecting database
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('MongoDB Atlas connected successfully');
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1);
+  }
+};
+
+// calling the connect 
+connectDB();
+
+//import routing
 const booksRoutes = require('./routes/index');
 
-// Initialize Express app
+//initialization of express
 const app = express();
 
-// View engine setup
+// setting pug to views engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-// Middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +44,7 @@ app.use(session({
 }));
 app.use(flash());
 
-// Flash messages middleware
+// output messages in middleware
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
@@ -37,12 +54,12 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', booksRoutes);
 
-// 404 handler
+// 404
 app.use((req, res, next) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-// Error handler
+// Handling Error 
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render('error', { 
@@ -54,8 +71,6 @@ app.use((err, req, res, next) => {
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running at port http://localhost:${PORT}`));
 
 module.exports = app;

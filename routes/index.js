@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+//validation setup
 const { check, validationResult } = require('express-validator');
 const bookController = require('../controllers/index');
 
@@ -11,30 +12,30 @@ const bookValidationRules = [
   check('status').isIn(['To Read', 'Reading', 'Completed']).withMessage('Status must be "To Read", "Reading", or "Completed"')
 ];
 
-// Home page - Display all books
+// Home page - show whole list of books
 router.get('/', bookController.getAllBooks);
 
-// Add new book - Form
+// adding new book form
 router.get('/books/add', (req, res) => {
   res.render('add-book', { title: 'Add New Book' });
 });
 
-// Add new book - Submit
+// Submit new book form
 router.post('/books/add', bookValidationRules, bookController.addBook);
 
-// View book details
+// book details
 router.get('/books/:id', bookController.getBookById);
 
-// Edit book - Form
+// editting book form
 router.get('/books/edit/:id', bookController.getEditBookForm);
 
-// Edit book - Submit
+// submitting edit form
 router.post('/books/edit/:id', bookValidationRules, bookController.updateBook);
 
-// Delete book
+// deletting book
 router.post('/books/delete/:id', bookController.deleteBook);
 
-// Filter books by status
+// filltering books by status (to read, completed, reading..)
 router.get('/filter/:status', bookController.filterBooksByStatus);
 
 module.exports = router;
