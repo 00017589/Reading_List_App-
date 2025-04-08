@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1.mb-4 Edit Book
+  h1.mb-4(style="color: rgb(108, 117, 125);") Edit Book
   
   if errors
     .alert.alert-danger
@@ -9,7 +9,7 @@ block content
         each error in errors
           li= error.msg
   
-  .card
+  .card.border-secondary.bg-light
     .card-body
       form(action=`/books/edit/${book.id}`, method="POST")
         .mb-3
@@ -37,5 +37,5 @@ block content
           textarea.form-control#notes(name="notes", rows="3")= book.notes
         
         .d-flex.gap-2
-          button.btn.btn-primary(type="submit") Update Book
-          a.btn.btn-secondary(href="/") Cancel
+          button.btn(type="submit", style="background-color: rgb(108, 117, 125); border-color: rgb(108, 117, 125); color: white;") Update Book
+          a.btn.btn-outline-secondary(href="/") Cancel

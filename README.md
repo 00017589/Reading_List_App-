@@ -1,6 +1,6 @@
 # Reading List App 
 
-Simple Node.js application that helps people organize their reading with adding a book to the list, editing, deleting and also they can filter their reading by status (to read, reading and completed). The project has been start at 29.03.2025 and committed to the github at 05.04.2025. Tried to make as clean code as possible. After first commits, I tried to implement MongoDB Atlas in separate branch which we learned on teaching week 12, however due to lack of knowledge, I stayed with the old version. 
+Simple Node.js application that helps people organize their reading with adding a book to the list, editing, deleting and also they can filter their reading by status (to read, reading and completed). The project has been start at 29.03.2025 and committed to the github at 05.04.2025. Tried to make as clean code as possible. After first commits, I tried to implement MongoDB Atlas in separate branch which we learned on teaching week 12, however due to lack of knowledge, I stayed with the old version. It is also important that all three books' details given in the web application are taken from ChatGPT, asked for random books and it generated.
 
 ## Features
 

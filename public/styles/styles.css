@@ -19,15 +19,15 @@ body {
   }
   
   .status-to-read {
-    color: #ffc107;
+    color: rgb(255, 159, 67);
   }
   
   .status-reading {
-    color: #17a2b8;
+    color: rgb(54, 162, 235);
   }
   
   .status-completed {
-    color: #28a745;
+    color: 	rgb(75, 192, 92);
   }
   
   .notes-text {
